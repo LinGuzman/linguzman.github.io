@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Encriptador de Texto</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    
+        textarea {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    
+        button {
+            margin-right: 10px;
+        }
+    </style>
+    
+
+</head>
+<body>
+    <header>
+        <img src="img/image.png" alt="Logo" style="width:100px;height:auto;">
+    </header>
+    <h1>ALURA LATAM CHALLENGE-1</h1>
+    <p>Introduce el texto que deseas encriptar o desencriptar(solo  minusculas):</p>
+    <textarea id="inputText" rows="4" cols="50"></textarea>
+    <br>
+    <button id="encryptButton">Encriptar</button>
+    <button id="decryptButton">Desencriptar</button>
+    <br>
+    <p>Resultado:</p>
+    <textarea id="outputText" rows="4" cols="50" readonly></textarea>
+    <br>
+    <button id="copyButton">Copiar</button>
+    
+    <script>
+    
+        const encryptDict = {
+            'e': 'enter',
+            'i': 'imes',
+            'a': 'ai',
+            'o': 'ober',
+            'u': 'ufat'
+        };
+    
+      
+        const decryptDict = {
+            'enter': 'e',
+            'imes': 'i',
+            'ai': 'a',
+            'ober': 'o',
+            'ufat': 'u'
+        };
+    
+     
+        function encrypt(text) {
+            let encryptedText = '';
+            for (let char of text) {
+                encryptedText += encryptDict[char] || char;
+            }
+            return encryptedText;
+        }
+    
+        
+        function decrypt(text) {
+            let decryptedText = text;
+            for (let key in decryptDict) {
+                decryptedText = decryptedText.split(key).join(decryptDict[key]);
+            }
+            return decryptedText;
+        }
+    
+     
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);
+        }
+    
+        document.getElementById('encryptButton').addEventListener('click', function() {
+            let inputText = document.getElementById('inputText').value;
+            let outputText = encrypt(inputText);
+            document.getElementById('outputText').value = outputText;
+        });
+    
+        document.getElementById('decryptButton').addEventListener('click', function() {
+            let inputText = document.getElementById('inputText').value;
+            let outputText = decrypt(inputText);
+            document.getElementById('outputText').value = outputText;
+        });
+    
+        document.getElementById('copyButton').addEventListener('click', function() {
+            let outputText = document.getElementById('outputText').value;
+            copyToClipboard(outputText);
+        });
+    </script>
+
+
+</body>
+</html>
